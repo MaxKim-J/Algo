@@ -2,8 +2,6 @@
 2020.01.28  
 선택/버블/삽입/힙  
 
-출처: https://dataleaf.tistory.com/entry/Markdown에서-수식-입력하기 [정보의 잎사귀]
-
 ## 선택정렬(Selection Sort)
 ### 동작
 배열에서 가장 큰 원소를 찾아 이 원소와 배열 끝자리에 있는 원소와 자리를 바꿈  
