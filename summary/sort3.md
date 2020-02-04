@@ -54,17 +54,44 @@ def counting_sort(arr, K):
 
 ### 구현
 계수정렬을 활용하면 쉽다  
-계수정렬을 활용하는 이유 : O(n)유지 + 10을 넘지 않을 것을 알고 있으므로 + 안정성도 유지
+계수정렬을 활용하는 이유 : O(n)유지 + 10을 넘지 않을 것을 알고 있으므로 + 안정성도 유지  
+*이렇게 하는 이유는?) 입력 데이터 A의 최대값인 k가 커지면 계수정렬의 효율성이 크게 떨어진다(인덱스와 값이 대응하기 때문에 배열이 무지하게 큰게 필요) 하지만 각각의 자릿수를 기준으로 정렬하게되면 계산복잡성을 낮출 수 있음  
 ```python
-def radix_sort(arr):
-    # arr 배열중에서 maxValue를 잡아서 어느 digit, 자릿수까지 반복하면 될지를 정한다
-    maxValue = max(arr)  
-    # 자릿수마다 countingSorting을 시작한다
-    digit = 1
-    while int(maxValue/digit) > 0: 
-        countingSort(arr, digit)
-        digit *= 10
-    return arr
+# 현재 자릿수(d)와 진법(base)에 맞는 숫자 변환
+# 함수를 쓴다!
+# ex) 102, d = 1, base = 10, : 2
+def get_digit(number, d, base):
+  return (number // base ** d) % base
+
+# 자릿수 기준으로 counting sort
+# A : input array
+# position : 현재 자릿수, ex) 102, d = 1 : 2
+# base : 10진수라면 base = 10
+def counting_sort_with_digit(A, d, base):
+    # k : ex) 10진수의 최대값 = 9
+    k = base - 1
+    B = [-1] * len(A)
+    C = [0] * (k + 1)
+    # 현재 자릿수를 기준으로 빈도수 세기
+    for a in A:
+        C[get_digit(a, d, base)] += 1
+    # C 업데이트
+    for i in range(k):
+        C[i + 1] += C[i]
+    # 현재 자릿수를 기준으로 정렬
+    for j in reversed(range(len(A))):
+        B[C[get_digit(A[j], d, base)] - 1] = A[j]
+        C[get_digit(A[j], d, base)] -= 1
+    return B
+
+from math import log
+def radix_sort(list, base=10):
+    # 입력된 리스트 가운데 최대값의 자릿수 확인
+    digit = int(log(max(list), base) + 1)
+    # 자릿수 별로 counting sort
+    for d in range(digit):
+        list = counting_sort_with_digit(list, d, base)
+    return list
 ```
 
 ### 안정정렬(Stable Sort)
