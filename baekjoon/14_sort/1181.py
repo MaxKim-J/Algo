@@ -22,3 +22,19 @@ for elem in arr:
 for arr in sorted(len_dict.items()):
     for elem in sorted(arr[1]):
         print(elem)
+
+# voca_list = []
+# for i in range(int(input())):
+#     voca_list.append(input())
+
+#! 리스트 중복을 이런식으로 제거했다
+# set_voca_list = list(set(voca_list))
+
+# sort_voca_list = []
+# for j in set_voca_list:
+#     sort_voca_list.append((len(j), j))
+
+#! 시퀀스 원소의 정렬은 앞을 먼저 정렬한 후 뒤를 정렬한다(?!)
+# sort_voca_list.sort()
+# for len_voca, voca in sort_voca_list:
+#     print(voca)
