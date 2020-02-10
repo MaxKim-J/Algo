@@ -20,8 +20,5 @@ for elem in arr:
         len_dict[len(elem)] = [elem]
 
 for arr in sorted(len_dict.items()):
-    if len(arr[1]) == 1:
-        print(arr[1][0])
-    else:
-        for elem in sorted(arr[1]):
-            print(elem)
+    for elem in sorted(arr[1]):
+        print(elem)
