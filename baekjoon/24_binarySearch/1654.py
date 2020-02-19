@@ -4,6 +4,7 @@ K, N = map(int, input().split())
 lan = [int(sys.stdin.readline()) for _ in range(K)]
 start, end = 1, max(lan)
 
+# 이분탐색을 수행, 중간위치를 찾고 이를 바탕으로 첨과 끝을 줄이기
 while start <= end:  # 적절한 랜선의 길이를 찾는 알고리즘
     mid = (start + end) // 2  # 중간 위치
     lines = 0  # 랜선 수
