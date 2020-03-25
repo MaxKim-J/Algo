@@ -1,5 +1,5 @@
 # 백준 2775 : 부녀회장이 될테야 풀이 
-# https://www.acmicpc.net/problem/2869
+# https://www.acmicpc.net/problem/2775
 # 시간 : 1시간 - 못품
 # 경과 : 시간초과 
 
