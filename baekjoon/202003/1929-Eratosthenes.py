@@ -8,9 +8,9 @@ min_n, max_n = map(int, input().split())
 result = [False, False] + [True] * (max_n - 1)
 
 for i in range(2, int(max_n**0.5)+1):
-        if result[i]:
-            for n in range(i+i, max_n+1, i):
-                result[n] = False
+    if result[i]:
+        for n in range(i+i, max_n+1, i):
+            result[n] = False
 prime_list = [ind for ind in range(min_n, max_n+1) if result[ind]]
 
 for i in prime_list:
