@@ -1,6 +1,7 @@
 # 🧑🏻‍💻 Algo
-![뱃지1](https://img.shields.io/github/last-commit/maxkim-j/Algo?style=flat-square) 
+![뱃지1](https://img.shields.io/github/last-commit/maxkim-j/Algo?style=flat-square)  
 ![뱃지2](https://img.shields.io/badge/Problem%20solving%20with-python%203.8.2-blue?style=flat-square&logo=python)  ![뱃지3](https://img.shields.io/badge/also%20using-jupyter%20notebook-orange?style=flat-square&logo=jupyter)
+
 2020.1 ~  
 맥스킴 알고리즘 연습 레포  
 
