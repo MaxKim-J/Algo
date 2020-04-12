@@ -1,5 +1,6 @@
 # 🧑🏻‍💻 Algo
-![뱃지1](https://img.shields.io/github/last-commit/maxkim-j/Algo) ![뱃지2](https://img.shields.io/badge/lang-python-blue)  
+![뱃지1](https://img.shields.io/github/last-commit/maxkim-j/Algo?style=flat-square) 
+![뱃지2](https://img.shields.io/badge/Problem%20solving%20with-python%203.8.2-blue?style=flat-square&logo=python)  ![뱃지3](https://img.shields.io/badge/also%20using-jupyter%20notebook-orange?style=flat-square&logo=jupyter)
 2020.1 ~  
 맥스킴 알고리즘 연습 레포  
 
@@ -9,16 +10,16 @@ python으로 백준 + 다른 알고리즘 문제들을 풀어봅니다.
 추후 java에 좀 숙련되면 java로도 풀어볼 예정  
 
 ## 🗓 알고리즘 풀이 현황
-최종 업데이트 : `2020.04.05`  
+최종 업데이트 : `2020.04.11`  
 | 년.월  | 푼 문제 | 복습한 문제 |
 |--------|---------|-------------|
 | 2020.2 | 14      | -           |
 | 2020.3 | 17      | 0           |
-| 2020.4 | 5       | 1           |
+| 2020.4 | 14      | 6           |
 
 | 기간  | 푼 문제 총합 | 복습 문제 총합 |
 |-------|--------------|----------------|
-| 3개월 | 36           | 1              |
+| 3개월 | 45           | 6              |
 
 
 ## 🙏 명심
