@@ -4,8 +4,8 @@
 # 경과 : 맞았습니다(548ms-pypy3)
 
 
-N = int(input())
-num_list = list(map(int, input().split()))
+N = 6
+num_list = [10, 20, 10, 30, 20, 50]
 inc = []
 
 
@@ -22,6 +22,8 @@ for num in num_list:
             end = mid-1
         else:
             start = mid+1
+
+    print(answer)
     if len(inc) <= answer:
         inc.append(num)
     else:
