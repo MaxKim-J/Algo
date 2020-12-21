@@ -1,6 +1,21 @@
-'''
-# Z 모양을 구성하는 4가지 방향에 대하여 재귀적으로 호출
-# 포인트를 잡아주기 => 0,0으로 순회하고, 실질적으로 순회를 세는거는 맨 마지막까지 쪼개졌을 때
-# 재귀를 부르는 순서와 인자도 중요하다 => 맨 위 왼칸부터 부르기, 맨 마지막까지 쪼개질 때까지
-# 단순하게 생각하고, 이상한 연산이 많이 나오면 망한거라고 생각해도 좋을듯 하다
-# '''
+chances = int(input())
+
+
+def solve(n, exp):
+    global N
+    if(n == N):
+        end_exp = exp + str(N)
+        if eval(end_exp.replace(' ', '')) == 0:
+            print(end_exp)
+            return
+        else:
+            return
+    solve(n+1, exp + str(n) + '+')
+    solve(n+1, exp + str(n) + '-')
+    solve(n+1, exp + str(n) + ' ')
+
+
+for _ in range(chances):
+    N = int(input())
+    solve(1, '')
+    print()
