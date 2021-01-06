@@ -31,6 +31,7 @@ def bfs(puzzle_string):
     queue = []
     queue.append((puzzle_string, 0))
     # 아예 문자열 전체를 하나의 노드로 보는 방법
+    #! 어떤걸 그래프를 식별할 수 있는 값으로 볼것인가가 중요하다. 탐색문제에서 벗어나지 않는 것은 경우의 수라고 생각하면 좋을듯?
     visit[puzzle_string] = 1
     while queue:
         puzzle_current, time = queue.pop(0)
