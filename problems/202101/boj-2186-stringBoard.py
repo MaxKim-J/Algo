@@ -1,10 +1,13 @@
 '''
 백준 2186번 <문자판>
 
+어렵다 진짜 그리고 사실상 DP문제였음
+
 1. N과 M 테스트 케이스가 필요했다
 2. 스켈레톤 구현한 부분마다 확실한 검증이 필요하다
 3. 일단 너무 예쁘게 구현하려고 생각하지 않아야 할거같음
 4. 아무리 생각해도 삼차원 배열은 에바다... enable_node를 제하더라도 문자열로 바꿔서 풀자
+5. BFS로는 시간초과 DP로는 풀림
 '''
 
 N, M, K = map(int, input().split())
@@ -31,7 +34,9 @@ def enable_node(index):
             result.append(south * N + Y)
     return result
 
-# 약간의 DP 테크닉
+# 약간의 DP랑 DFS랑 스까놓은 이상한 DFS다
+# 사실 트리를 깊이우선으로 방문하긴 하지만 사실상 DP를 하기위한 것 뿐임
+#! visit을 DP TABLE 처럼 사용하는 미친 내공을 보여줌
 
 
 def DFS(current, idx):
