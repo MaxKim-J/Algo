@@ -1,55 +1,11 @@
-# 으아 너무 어렵다..............BFS보다 시간을 줄여야만 돌아가는듯????
-# BFS: 시간초과
-# DFS: 런타임에러
-
-# 이거 리팩토링
-import sys
-sys.setrecursionlimit(10**9)
-
-
-def solve(i, j, depth):
-    if visit[i][j][depth] >= 0:
-        return visit[i][j][depth]
-
-    if table[i][j] != target[depth]:
-        visit[i][j][depth] = 0
-        return 0
-
-    depth += 1
-    if depth == len_target:
-        visit[i][j][depth-1] = 1
-        return 1
-
-    cnt = 0
-    for t in range(-k, k+1):
-        if t == 0:
-            continue
-
-        it, jt = i+t, j+t
-        if 0 <= it < n:
-            cnt += solve(it, j, depth)
-        if 0 <= jt < m:
-            cnt += solve(i, jt, depth)
-    visit[i][j][depth-1] = cnt
-    return cnt
-
-
-n, m, k = map(int, sys.stdin.readline().split())
-table = [list(sys.stdin.readline().rstrip()) for _ in range(n)]
-target = sys.stdin.readline().rstrip()
-len_target = len(target)
-
-visit = [[[-1]*len_target for j in range(m)] for i in range(n)]
-ans = 0
-for i in range(n):
-    for j in range(m):
-        if table[i][j] == target[0]:
-            ans += solve(i, j, 0)
-print(ans)
-
-
 '''
-내풀이...(시간초과)
+백준 2186번 <문자판>
+
+1. N과 M 테스트 케이스가 필요했다
+2. 스켈레톤 구현한 부분마다 확실한 검증이 필요하다
+3. 일단 너무 예쁘게 구현하려고 생각하지 않아야 할거같음
+4. 아무리 생각해도 삼차원 배열은 에바다... enable_node를 제하더라도 문자열로 바꿔서 풀자
+'''
 
 N, M, K = map(int, input().split())
 board = ''
@@ -60,41 +16,92 @@ target = input()
 
 def enable_node(index):
     result = []
+    X = index // N
     Y = index % N
-    X = index // M
 
     for i in range(K):
-        north, south, west, east = Y+(i+1), Y-(i+1), X-(i+1), X+(i+1)
+        north, south, west, east = X-(i+1), X+(i+1), Y-(i+1), Y+(i+1)
         if -1 < west < N:
-            result.append(west * M + Y)
+            result.append(X * N + west)
         if -1 < east < N:
-            result.append(east * M + Y)
+            result.append(X * N + east)
         if -1 < north < M:
-            result.append(X * M + north)
+            result.append(north * N + Y)
         if -1 < south < M:
-            result.append(X * M + south)
+            result.append(south * N + Y)
     return result
 
+# 약간의 DP 테크닉
 
-def DFS(start, target):
-    count = 0
-    stack = [(start, 0, target[0])]
-    depth_limit = len(target) - 1
-    while stack:
-        visit, depth, path = stack.pop()
-        if path == target:
-            count += 1
-        for idx in enable_node(visit):
-            if (depth < depth_limit) and (target[depth + 1] == board[idx]):
-                stack.append((idx, depth + 1, path+board[idx]))
-    return count
+
+def DFS(current, idx):
+    if idx == len(target):
+        return 1
+    if visited[current][idx] != -1:
+        return visited[current][idx]
+    visited[current][idx] = 0
+
+    for next in enable_node(current):
+        if board[next] == target[idx]:
+            visited[current][idx] += DFS(next, idx+1)
+    return visited[current][idx]
 
 
 # 시작점이 되는 후보 설정
 start = [i for i, elem in enumerate(board) if elem == target[0]]
+visited = [[-1] * len(target) for _ in range(M*N+1)]
 result = 0
 for num in start:
-    result += DFS(num, target)
+    result += DFS(num, 1)
 
 print(result)
+
+'''
+다른사람풀이
+
+from collections import deque
+import sys, copy
+from itertools import permutations
+
+dy = [-1, 0, 0, 1]
+dx = [0, 1, -1, 0]
+
+def dfs(y, x, idx):
+    if idx == len(word):
+        return 1
+    if c[y][x][idx] != -1:
+        return c[y][x][idx]
+
+    c[y][x][idx] = 0
+    for i in range(4):
+        temp_y, temp_x = y, x
+        for _ in range(k):
+            ny = temp_y + dy[i]
+            nx = temp_x + dx[i]
+            if 0<= ny< n and 0<=nx < m:
+                if a[ny][nx] == word[idx]:
+                    c[y][x][idx] += dfs(ny, nx, idx+1)
+            temp_y, temp_x = ny, nx
+    return c[y][x][idx]
+
+
+n, m, k = map(int, input().split())
+a = []
+for _ in range(n):
+    a.append(list(input().strip()))
+word = list(input().strip())
+
+start = []
+# dfs 후보들을 고른다
+for i in range(n):
+    for j in range(m):
+        if a[i][j]==word[0]:
+            start.append([i,j])
+
+ans = 0
+c = [[[-1]*len(word) for _ in range(m)] for _ in range(n)]
+for i in range(len(start)):
+    y, x = start[i]
+    ans += dfs(y, x, 1)
+print(ans)
 '''
