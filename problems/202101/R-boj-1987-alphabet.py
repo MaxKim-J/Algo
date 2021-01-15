@@ -34,6 +34,7 @@ def bfs():
             nx, ny = x + dx[i], y + dy[i]
             if (-1 < nx < R) and (-1 < ny < C) and (board[nx][ny] not in sentence):
                 # x,y,value가 같은 노드는 단 한번만 돌면 된다(위 value까지 다 같다는 뜻이므로)
+                #! 무슨 값일때 또한번 돌아야 하는지 생각해볼것(BFS할때는)
                 current = (nx, ny, sentence + board[nx][ny])
                 if not visited.get(current):
                     queue.append(current)
