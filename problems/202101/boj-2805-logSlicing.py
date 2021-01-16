@@ -10,7 +10,7 @@ while start <= end:
     total_log = 0
     for tree in trees:
         total_log += max(tree - mid, 0)
-    #! 왜 값을 이 시점에 저장하는가
+    # "적어도 M미터의 나무를 집에 가겨지기 위한 절단기 높이의 최대값"
     if total_log <= M:
         start = mid + 1
         result = mid
