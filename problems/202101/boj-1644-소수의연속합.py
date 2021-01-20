@@ -15,18 +15,19 @@ def prime_number_list(num):
 
 N = int(input())
 prime_numbers = prime_number_list(N)
+prime_length = len(prime_numbers)
 start = end = total = count = 0
 
-# 좀더 정확히 이해할 필요가 있음
-while True:
+# 가장 이해가 쉬운 형태로 바꿈
+while start < prime_length:
     if total >= N:
         if total == N:
             count += 1
         total -= prime_numbers[start]
         start += 1
-    elif end == len(prime_numbers):
-        break
     else:
+        if end == prime_length:
+            break
         total += prime_numbers[end]
         end += 1
 
