@@ -35,7 +35,7 @@ def bfs2(num):
             ny = y + dy[i]
             # * 섬의 크기를 늘려가면서 다른 섬에 닿을때까지의 거리를 구함
             if 0 <= nx < n and 0 <= ny < n:
-                # * 육지를 만났는데 같은 섬인경우 == pass => 걍 pass하는 선택지도 괜찮음
+                # * 육지를 만났는데 같은 섬인경우 == pass => 순회중에 뭐 없으면 걍 pass하는 선택지도 괜찮음
                 # 육지를 만났는데 다른 섬인 경우 => 먼저 작성했던 섬 구분되는 이차원 배열을 사용해서 대조
                 if board[nx][ny] == 1 and visited[nx][ny] != num:
                     return visited2[x][y]-1
@@ -67,7 +67,7 @@ for k in range(1, cnt):
     for i in range(n):
         for j in range(n):
             if board[i][j] == 1 and visited[i][j] == k:
-                # 큐에다가 미리! 섬을 구성하는 모든 1칸들을 다 넣어놓음
+                # * 큐에다가 미리! 섬을 구성하는 모든 1칸들을 다 넣어놓음
                 q.append([i, j])
                 # 지금 현재 순회하는 섬을 1로 만듬 => 거기서부터 시작
                 visited2[i][j] = 1
