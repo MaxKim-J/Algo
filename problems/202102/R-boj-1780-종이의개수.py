@@ -23,12 +23,7 @@ def solve(x, y, n):
                 # 그리고 결과산출 안함
                 return
 
-    if(num_check == -1):
-        result[-1] += 1
-    elif(num_check == 0):
-        result[0] += 1
-    else:
-        result[1] += 1
+    result[num_check] += 1
 
 
 solve(0, 0, N)
