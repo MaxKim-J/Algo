@@ -23,10 +23,12 @@ def merge_sort(start, end):
     idx1, idx2 = start, mid
     count = 0
     while idx1 < mid and idx2 < end:
+        # 오른배열
         if arr[idx1] > arr[idx2]:
             merged_arr.append(arr[idx2])
             idx2 += 1
             count += 1
+        # 왼배열
         else:
             merged_arr.append(arr[idx1])
             idx1 += 1
