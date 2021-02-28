@@ -1,14 +1,15 @@
-# 🧑🏻‍💻 Algo
-
-![뱃지1](https://img.shields.io/github/last-commit/maxkim-j/Algo?style=flat-square) ![뱃지2](https://img.shields.io/badge/Problem%20solving%20with-python%203.8.2-blue?style=flat-square&logo=python)
-
 <div align="center">
+
+  # Algo
+
+  ![뱃지1](https://img.shields.io/github/last-commit/maxkim-j/Algo?style=flat-square) ![뱃지2](https://img.shields.io/badge/Problem%20solving%20with-python%203.8.2-blue?style=flat-square&logo=python)
+
   2020.1 ~  
   맥스킴 알고리즘 연습 레포  
 
   ![생각햇니](./img.jpg)  
 
-  python으로 백준 + 다른 알고리즘 문제들을 풀어봅니다.  
+  (일단) python으로 백준 + 다른 알고리즘 문제들을 풀어봅니다.  
 </div>
 
 ## 🏃🏻‍♀️ 루틴
@@ -20,9 +21,9 @@
 
 ## ⚖️ 규칙 
 
-1. R 문제는 푼거 못푼거 상관없이 리뷰할 가치가 있는 문제. 다음번에 다시 문제를 읽고 풀이를 다시 정리한다.
-2. H 문제는 아예 손을 못댔거나, 다시 풀어보고 싶은 문제. 복습때 다시 푼다.
-3. E 문제는 문제 풀이를 알아야 답을 구할 수 있는 정형화된 풀이법이 필요하거나, 유명한 알고리즘을 이용해서 풀어야 하는 문제. Example 디렉토리에 따로 정리한다.
+1. **R 문제**는 푼거 못푼거 상관없이 리뷰할 가치가 있는 문제. 다음번에 다시 문제를 읽고 풀이를 다시 정리한다.
+2. **H 문제**는 아예 손을 못댔거나, 다시 풀어보고 싶은 문제. 복습때 다시 푼다.
+3. **E 문제**는 문제 풀이를 알아야 답을 구할 수 있는 정형화된 풀이법이 필요하거나, 유명한 알고리즘을 이용해서 풀어야 하는 문제. Example 디렉토리에 따로 정리한다.
 4. 문제 풀이 시간은 60분을 넘기지 않는다. 60분안에 안풀리면 그냥 모르는 것. 접근에 확신이 있고, 거의 다 왔다는 확신이 있는 경우에만 90분까지 써보기.
 5. 빠르게 풀 수 없는 방향으로 생각을 했기 때문에 시간안에 못 푸는 것이다. 복기해야함.
 6. 복습은 한 달 단위로 한다. 코랩이나 주피터 노트북에 쭈르르 정리한다.(깃헙에는 올리지 않는다)
