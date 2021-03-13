@@ -13,6 +13,7 @@ negative = []
 # 가장 거리가 먼 책까지의 거리
 largest = max(max(array), - min(array))
 
+# 최대힙으로 힙을 이용하기
 for i in array:
   if i > 0:
     heapq.heappush(positive, -i)
@@ -21,7 +22,7 @@ for i in array:
 
 result = 0
 
-# m개씩 빼내기
+# m개씩 빼내기 - 거리가 먼 얘들부터 시작함
 while positive:
   result += heapq.heappop(positive)
   for _ in range(m-1):
