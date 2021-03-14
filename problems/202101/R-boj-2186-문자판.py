@@ -9,71 +9,19 @@
 4. 아무리 생각해도 삼차원 배열은 에바다... enable_node를 제하더라도 문자열로 바꿔서 풀자
 5. BFS로는 시간초과 DP로는 풀림
 '''
-
-N, M, K = map(int, input().split())
-board = ''
-for _ in range(M):
-    board += input()
-target = input()
-
-
-def enable_node(index):
-    result = []
-    X = index // N
-    Y = index % N
-
-    for i in range(K):
-        north, south, west, east = X-(i+1), X+(i+1), Y-(i+1), Y+(i+1)
-        if -1 < west < N:
-            result.append(X * N + west)
-        if -1 < east < N:
-            result.append(X * N + east)
-        if -1 < north < M:
-            result.append(north * N + Y)
-        if -1 < south < M:
-            result.append(south * N + Y)
-    return result
-
-# 약간의 DP랑 DFS랑 스까놓은 이상한 DFS다
-# 사실 트리를 깊이우선으로 방문하긴 하지만 사실상 DP를 하기위한 것 뿐임
-#! visit을 DP TABLE 처럼 사용하는 미친 내공을 보여줌
-
-
-def DFS(current, idx):
-    if idx == len(target):
-        return 1
-    if visited[current][idx] != -1:
-        return visited[current][idx]
-    visited[current][idx] = 0
-
-    for next in enable_node(current):
-        if board[next] == target[idx]:
-            visited[current][idx] += DFS(next, idx+1)
-    return visited[current][idx]
-
-
-# 시작점이 되는 후보 설정
-start = [i for i, elem in enumerate(board) if elem == target[0]]
-visited = [[-1] * len(target) for _ in range(M*N+1)]
-result = 0
-for num in start:
-    result += DFS(num, 1)
-
-print(result)
-
-'''
-다른사람풀이
-
 from collections import deque
-import sys, copy
-from itertools import permutations
 
 dy = [-1, 0, 0, 1]
 dx = [0, 1, -1, 0]
 
 def dfs(y, x, idx):
+    print(y,x, idx)
     if idx == len(word):
         return 1
+    # 이미 방문한 곳 + 이미 방문한 인덱스라면 그 자체를 리턴한다
+	# idx는 해당 칸을 방문했을 때 전체 단어에서 몇번째 방문인지를 기록함. 거기를 이미 방문했다는 것은
+	# 거기서부터는 다시 이하 낱자를 찾아간 것을 그대로 백트랙킹 할 수 있다는 것임(똑같이 사용 가능)
+    #! 그 칸을 n번째 낱자를 완성하기 위해 방문했음. 그리고 C는 거기서부터 시작할때 완성된 낱자를 만들 수 있는 경우의 수를 DFS로 모두 구함
     if c[y][x][idx] != -1:
         return c[y][x][idx]
 
@@ -108,5 +56,5 @@ c = [[[-1]*len(word) for _ in range(m)] for _ in range(n)]
 for i in range(len(start)):
     y, x = start[i]
     ans += dfs(y, x, 1)
+
 print(ans)
-'''
