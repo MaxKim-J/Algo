@@ -36,6 +36,7 @@ def pos_init():
 def move(x, y, dx, dy):
     cnt = 0  # 이동 칸 수
     # 다음이 벽이거나 현재가 구멍일 때까지
+    #! 해당 방향으로 일보전진 하지 못하는 경우는 이렇게 딱 2가지
     while B[x+dx][y+dy] != '#' and B[x][y] != 'O':
         x += dx
         y += dy
