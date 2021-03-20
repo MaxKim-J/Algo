@@ -4,6 +4,7 @@ board = []
 for i in range(n):
     board.append(list(map(int, input().split())))
 
+# 이런 노가다는 실수하지 않고 한번에 끝낸다는 각오로 집중해서 할것 검산은 없다
 tetromino = [
   [(0, 1), (1, 0), (1, 1)], 
   [(0, 1), (0, 2), (0, 3)], 
