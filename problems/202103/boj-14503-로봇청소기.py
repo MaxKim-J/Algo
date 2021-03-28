@@ -24,7 +24,6 @@ def clean(ir, ic, id):
   r, c, d = ir, ic, id
 
   while True:
-    print(r,c,d)
     if board[r][c] == 0:
       board[r][c] = 2
       count += 1
