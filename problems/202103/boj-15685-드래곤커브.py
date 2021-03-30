@@ -14,7 +14,7 @@ for i in range(n):
     y, x, d, g = map(int, input().split())
     s[x][y] = 1
     temp = [d]
-    q = temp[:]
+    q = [d]
     for _ in range(g + 1):
         for k in q:
             x += dx[k]
