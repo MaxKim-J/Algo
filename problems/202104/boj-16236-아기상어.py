@@ -1,5 +1,7 @@
 # 일단 이거는 ㄹㅇ 개 야매풀이 ㅋㅋㅋ 재밌어서 가져와봄
 
+#! 핵심 : 따로 기록하기, 왼쪽 위쪽이 뭔지, 과정을 다 구현할 필요가 없음
+
 # BFS로 상어가 갈 수 있는 모든 경우의 수를 탐색해야 했기 때문에 굳이 일일히 구현할 필요는 없는 문제였음
 # 정석적으로 BFS에 모든 상황 이차원 배열을 넣어서 풀수도 있었을 거 같긴 한데
 # 상어랑 같은 크기의 물고기가 있을때 어떻게 기록할 것인지 + 가장 왼쪽 위의 물고기를 어캐 픽할것인지 => 생각해봐야햇음
@@ -77,3 +79,93 @@ weight, time, eat = 2, 0, 0
 # 해괴한 스킬....재귀로 반복시킴
 while True:
     x, y, weight, time, eat = bfs(x, y, weight, time, eat)
+
+'''
+정석에 가까운 풀이
+
+import sys
+from collections import deque
+import heapq
+
+# 먹는 물고기 리턴하는 함수 => 한번 할때마다 먹을 수 있는(reach가 가능한) 물고기를 일단 다 배열에 넣는 느낌이다
+# arr를 modify하지 않음 걍 탐색만함 갈수 있는 곳으로만 간다
+def bfs(x, y):
+    q = deque()
+    heap = []
+    q.append((x, y, 0))
+
+    while q:
+        x, y, d = q.popleft()
+
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if -1 < nx < n and -1 < ny < n and not visited[nx][ny]:
+                visited[nx][ny] = True
+                if arr[nx][ny] == 0 or size == arr[nx][ny]:
+                    q.append((nx, ny, d + 1))
+                elif size > arr[nx][ny]:
+                    # 힙을 사용해서 왼쪽위쪽이 가장 앞에 오게 만들기
+                    # 큐에는 뎁쓰랑 새로운 노드 좌표가 들어감 => 뎁쓰 어따씀???
+                    heapq.heappush(heap, [d + 1, nx, ny])
+
+    # 먹는 물고기를 리턴
+    if heap:
+        return heap[0]
+    else:
+        return None
+
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+input = sys.stdin.readline
+n = int(input().strip())
+arr = [list(map(int, input().split())) for _ in range(n)]
+
+# 초기화
+fishes = []
+size = 2 # 상어의 사이즈는 또 따로 기록해주기
+eaten = 0 # 먹었던것들 기록(상어 레벨업때문에)
+cnt = 0 # 답(depth, time)
+
+s1, s2 = 0, 0 # 최초의 상어위치 기록
+
+for i in range(n):
+    for j in range(n):
+        # 물고기 기록
+        if 0 < arr[i][j] < 7:
+            fishes.append((i, j))
+        # 상어 기록. 이때 보드의 상어 자리를 0으로 만들고 자리를 기록
+        elif arr[i][j] == 9:
+            arr[i][j] = 0
+            s1 = i
+            s2 = j
+
+# 물고기 기록한것에서 그 물고기들 다 먹었는지 체크
+#! 실제로는 하나만 먹으면 되고 거기로만 가면 됨 굳이 모든 과정 다 거쳐서 거까지 갈 필요가 없음
+
+while len(fishes) != 0:
+    # 매번 BFS 수행할때마다 visited 초기화
+    visited = [[False] * n for _ in range(n)]
+    visited[s1][s2] = True
+
+    result = bfs(s1, s2)
+
+    # 먹을 수 있는 물고기가 있는지 타진 없으면 브레이크
+    if result == None:
+        break
+    else:
+        eaten += 1
+        cnt += result[0]
+        arr[result[1]][result[2]] = 0
+
+    if eaten == size:
+        eaten = 0
+        size += 1
+
+    # 먹은 물고기 자리
+    s1, s2 = result[1], result[2]
+
+print(cnt)
+'''
