@@ -1,0 +1,48 @@
+name: algo_daily_alarm
+
+on:
+  schedule:
+    - cron: "00 11 * * *"
+
+jobs:
+  algo_daily_alarm:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: POST Algo repo daily alarm to Slack
+        shell: bash
+        run: |
+          echo slack algo alarm
+          NOW_DATE=$(date +%Y.%m.%d)
+          NOW_MONTH=$(date +%0m)
+          NOW_YEAR=$(date +%Y)
+
+          TARGET_FILE_NAME="${NOW_YEAR}${NOW_MONTH}"
+          TARGET_FILE_PATH="problems/${TARGET_FILE_NAME}"
+
+          COUNT=$(ls -al $TARGET_FILE_PATH | grep -E "^-.*\.py$|^-.*\.js" | wc -l | sed 's/ //g')
+
+          SITUATION=""
+
+          if [ $COUNT -lt 10 ]
+          then
+              SITUATION="더 분발하세요!!!"
+          elif [ $COUNT -ge 10 -a $COUNT -lt 20 ]
+          then
+              SITUATION="잘 하고 계시네요. 화이팅!!"
+          elif [ $COUNT -ge 20 -a $COUNT -lt 30 ]
+          then
+              SITUATION="이번달 목표를 거의 다 달성하셨네요. 대단해요!!"
+          else
+              SITUATION="30문제 넘게 푸셨네요!!!! 대박대박 너무 짱짱맨입니다!!"
+          fi
+
+          DAILY_MESSAGE="알고리즘 문제 풀기 좋은 밤이네요!\n현재일($NOW_DATE)기준으로, *${NOW_YEAR}년 ${NOW_MONTH}월에 ${COUNT}문제* 푸셨어요\n한 달 목표는 *30문제* 입니다. ${SITUATION}"
+
+          curl -X POST --data-urlencode "payload={\"channel\": \"#알고_알리미\", \"username\": \"알고 알리미\", \"text\": \"${DAILY_MESSAGE}\", \"icon_emoji\": \":male-technologist:\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
