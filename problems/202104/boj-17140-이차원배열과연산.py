@@ -16,6 +16,13 @@ def arr_sort(dic):
     result.append(freq)
   return result
 
+def check_freq(freq, board):
+  if board[r][c] != 0:
+    if freq.get(board[r][c]):
+      freq[board[r][c]] += 1
+    else:
+      freq[board[r][c]] = 1
+
 while True:
   if time > 100:
     time = -1
@@ -29,18 +36,14 @@ while True:
 
   if R >= C:
     for r in range(R):
-      freq = dict()
+      freqR = dict()
       for c in range(C):
-        if board[r][c] != 0:
-          if freq.get(board[r][c]):
-            freq[board[r][c]] += 1
-          else:
-            freq[board[r][c]] = 1
+        check_freq(freqR, board)
 
-      new_line = arr_sort(freq)
+      new_line = arr_sort(freqR)
       new_line_len = len(new_line)
-      board[r] = new_line
       max_line = max(new_line_len, max_line)
+      board[r] = new_line
     
     for r in range(R):
       for _ in range(max_line - len(board[r])):
@@ -49,25 +52,18 @@ while True:
 
   else:
     for c in range(C):
-      freq = dict()
+      freqC = dict()
       for r in range(R):
-        if board[r][c] != 0:
-          if freq.get(board[r][c]):
-            freq[board[r][c]] += 1
-          else:
-            freq[board[r][c]] = 1
+        check_freq(freqC, board)
 
-      new_line = arr_sort(freq)
+      new_line = arr_sort(freqC)
       new_line_len = len(new_line)
       max_line = max(new_line_len, max_line)
 
       for _ in range(max_line - len(board)):
         board.append([0] * C)
       for r in range(len(board)):
-        if r < new_line_len:
-          board[r][c] = new_line[r]
-        else:
-          board[r][c] = 0
+        board[r][c] = new_line[r] if r < new_line_len else 0
     R = max_line
 
 print(time)
