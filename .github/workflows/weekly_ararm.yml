@@ -1,0 +1,53 @@
+name: algo_weekly_alarm
+
+on:
+  schedule:
+    - cron: "0 9 * * 5"
+
+jobs:
+  algo_daily_alarm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: POST Algo repo weekly alarm to Slack
+        shell: bash
+        run: |
+          NOW_YEAR=$(date +%Y)
+          TARGET_FILE_PATH="problems"
+
+          echo ${NOW_YEAR}
+
+          TARGET_DIR=($(find ${TARGET_FILE_PATH} -type d | grep ${NOW_YEAR} | cut -c 38- | sort))
+
+          echo ${TARGET_DIR[*]}
+
+          TARGET_VALUE=()
+          LENGTH=0
+          TOTAL=0
+
+          for dir in "${TARGET_DIR[@]}"
+          do
+              LENGTH=$(($LENGTH + 1))
+              VALUE=$(ls -al "${TARGET_FILE_PATH}/$dir" | grep -E "^-.*\.py$|^-.*\.js" | wc -l | sed 's/ //g')
+              TARGET_VALUE+=( $VALUE )
+              TOTAL=$(( $TOTAL + $VALUE ))
+          done
+
+          echo ${TARGET_VALUE[*]}
+
+          echo $LENGTH
+          NOW_DATE=$(date +%Y.%m.%d)
+          MESSAGE="*주간 알고리즘 결산($NOW_DATE)*\n\n"
+
+          for ((i=0;i<$LENGTH;i++)); do
+              MESSAGE+="$(echo ${TARGET_DIR[$i]} | cut -c -4)년 $(echo ${TARGET_DIR[$i]} | cut -c 5-)월에 푼 문제 수: ${TARGET_VALUE[$i]}\n"
+          done
+
+          MESSAGE+="--------------------------------\n${NOW_YEAR}년에 푼 문제\n*총합 $TOTAL 문제*\n\n무지 고통스럽지만, 언젠간 빛을 볼 PS입니다. 화이팅!!!"
+
+          echo $MESSAGE
+
+          curl -X POST --data-urlencode "payload={\"channel\": \"#알고_알리미\", \"username\": \"알고 알리미\", \"text\": \"${MESSAGE}\", \"icon_emoji\": \":male-technologist:\"}" ${{ secrets.SLACK_WEBHOOK_URL }}

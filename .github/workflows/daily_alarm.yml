@@ -7,9 +7,6 @@ on:
 jobs:
   algo_daily_alarm:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
 
     steps:
       - name: Checkout
