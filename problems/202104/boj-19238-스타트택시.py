@@ -120,7 +120,7 @@ def isin(y,x):
         if -1<x<n: return True
     return False
 
-# 출발지와 도착지 거리 계산
+#! 출발지와 도착지 거리 계산 => 거리만 계산할 수 있으면 풀수있었음 
 def bfs():
     global taxi_pos, f
     sy, sx = taxi_pos[0] - 1, taxi_pos[1] - 1
