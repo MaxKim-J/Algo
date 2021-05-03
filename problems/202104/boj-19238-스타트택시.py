@@ -61,15 +61,15 @@ def move(ahead):
   visitedB[cr][cc] = 1
   while queue:
     r,c,d = queue.popleft()
+    if (r == tr) and (c == tc):
+      if K - d < 0:
+        return False
+      K += d
+      return (nr, nc)
     for i in range(4):
       nr = r + dr[i]
       nc = c + dc[i]
       if (-1 < nr < N) and (-1 < nc < N) and (visitedB[nr][nc] != 1):
-        if (nr == tr) and (nc == tc):
-          if K - (d+1) < 0:
-            return False
-          K += (d+1)
-          return (nr, nc)
         visitedB[nr][nc] = 1
         queue.append((nr, nc, d+1))
 
@@ -145,6 +145,7 @@ def bfs():
                         table[ny][nx] = table[y][x] + 1
                         q.append([ny, nx])
     
+    # 모든 칸과의 거리 계산
     return table
 
 # 택시와 가까운 손님을 찾는 함수
