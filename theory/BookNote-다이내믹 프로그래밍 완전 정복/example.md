@@ -150,3 +150,119 @@ def numOfPaths(m, n):
   # 맨 우하단의 값 리턴
   return dp[m - 1][n - 1]
 ```
+
+## 3. 문자열 인터리빙 확인 문제
+
+두 문자열 A, B가 있는데 이 문자열 내의 모든 글자의 상대적인 순서가 유지된 채 섞여서 새로운 문자열 C가 만들어지면 이때 문자열 C를 문자열 A와 문자열 B의 인터리빙이라고 부름  
+xyz와 abcd가 있으면 xabyczd는 xyz와 abcd의 인터리빙  
+세 개의 문자열 A, B, C가 주어졌을 때 세번째 문자열이 앞의 두 문자열의 인터리빙인지를 검사하는 함수를 작성하기  
+
+> 이것도 약간 병합정렬식으로 재귀 돌리면 풀릴듯? DP로는 인덱스를 유지한채 a에서 온거랑 b에서 온거랑 분리해서 맞으면 계속 가고 이러면 될거같은데
+
+## 재귀
+
+- C의 길이가 A, B 길이 합과 같지 않다면 애초부터 아님
+- C의 길이가 A와 B의 합과 같은 경우에만 다음 과정으로 넘어감
+- xabyczd, xyz, abcd일때
+- 반복되는 문제 캐치 : 첫번째 글자 x는 b의 첫번째 글자가 아니므로 A에서 가져온 것임이 분명함. 이때 A를 하나 날려서 이제 문자열 yz와 문자열 abcd의 인터리빙인지를 확인하는 작은 문제로 바뀜... 계속 반복
+- 만약 A에서 온 것일수도 있고 B에서 온 것일수도 있을 경우 양쪽 모두를 확인해봐야함
+
+```py
+def isInterleaving(A, B, C):
+  # 만약 모든 문자열이 빈 문자열인 경우
+  if (len(A) == 0) and (len(B) == 0) and (len(C) == 0):
+    return True
+  
+  # A와 B 문자열의 길이의 합이 C 문자열의 길이와 다를 때
+  if len(A) + len(B) != len(C):
+    return False
+
+  caseA = False
+  caseB = False
+
+  # A의 첫글자와 C의 첫글자가 같은 경우
+  if (len(A) != 0) and (A[0] == C[0]):
+    caseA = isInterleaving(A[1:], B, C[1:])
+  
+  # B의 첫글자와 C의 첫글자가 같은 경우
+  if (len(B) != 0) and (B[0] == C[0]):
+    caseB = isInterleaving(A, B[1:], C[1:])
+
+  # 가능한 케이스는 끝까지(뭔지 밝혀질때까지) 하향식으로 계산된다
+  return caseA or caseB
+```
+
+- 가능한 케이스에 대해 모두 연산을 수행하고, 하향식으로 가능한 케이스가 끝까지 계산되기 때문에 당연히 반복되는 연산이 많아보인다
+- O(2^n) : 2개의 자식이 반복되는 트리이므로 지수시간
+
+## DP
+
+- 각 단계마다 C의 부분 문자열이 A의 부분 문자열과 B의 부분 문자열의 인터리빙인지를 확인함
+- 역시 이것도 각 문자 하나하나를 행과 열로 하는 DP 테이블이 필요하고, 참 거짓 여부를 채운다. 
+- 행렬의 (i,j)값은 C'가 A'와 B'의 인터리비잉면 참이 됨
+- (0,0)은 빈 문자열 두개를 인터리빙해도 빈 문자열이기 때문에 무조건 참으로 시작함
+- 첫번째 행은 문자열 A가 빈 문자열인데 이때는 B의 부분 문자열이 C의 부분 문자열과 같으면 참(그냥 그 안에 모두 넣을 수만 있으면)
+- 테이블을 채워나가는 방법은 4가지가 가능함
+  - C의 현재 글자가 A의 현재 글자와 B의 현재 글자 어느쪽과도 다른 경우, 이때 셀의 값은 거짓
+  - C의 현재 글자가 A의 현재 글자와 같지만 B의 현재 글자와 다를 경우, 이때 셀의 값은 바로 위 셀의 값(A의 참거짓)
+  - C의 현재 글자가 B와 같지만 A와는 다른 경우 이때 셀의 값은 바로 왼쪽 셀의 값(B의 참거짓)
+  - A,B,C현재 글자가 모두 같은 경우 이때 셀의 값은 위쪽 셀의 값이나 오른쪽 셀의 값 둘 중 하나가 참이면 참
+
+```py
+def isInterleaving(A, B, C):
+  # A, B, C 세 문자열의 길이를 구합니다.
+  M = len(A)
+  N = len(B)
+  lengthC = len(C)
+
+  # A와 B 문자열의 길이의 합이 C 문자열의 길이와 다를 때
+  if lengthC != M + N:
+    return False
+
+  # 인터리빙 여부를 저장하는 2차원 배열
+  ilMatrix = [[True] * (N + 1) for i in range(0, M + 1)]
+
+  # 첫번째 열을 채웁니다.(열길이 기준)
+  for i in range(1, M + 1):
+    if A[i - 1] != C[i - 1]: # 같지 않으면 무조건 false로 채움 => 문자열 하나만으로 인터리빙을 만들어야 하기 때문
+      ilMatrix[i][0] = False
+    else:
+      ilMatrix[i][0] = ilMatrix[i - 1][0] # 바로 위에 꺼
+
+  # 첫번째 행을 채웁니다. (행길이 기준)
+  for j in range(1, N + 1):
+    if B[j - 1] != C[j - 1]: #
+      ilMatrix[0][j] = False
+    else:
+      ilMatrix[0][j] = ilMatrix[0][j - 1] # 바로 옆에꺼 그냥 가져옴
+  
+  # 나머지 셀을 채웁니다.
+  for i in range(1, M + 1):
+    for j in range(1, N + 1):
+      currantA = A[i - 1]
+      currentB = B[j - 1]
+      currentC = C[i + j - 1]
+      # C의 글자가 A의 글자와 같고 B의 글자와 다를 때
+      if (currantA == currentC) and (currentB != currentC):
+        ilMatrix[i][j] = ilMatrix[i - 1][j]
+      # C의 글자가 B의 글자와 같고 A의 글자와 다를 때
+      elif (currantA != currentC) and (currentB == currentC):
+        ilMatrix[i][j] = ilMatrix[i][j - 1]
+      # A, B, C 글자 모두가 같을 때
+      elif (currantA == currentC) and (currentB == currentC):
+        ilMatrix[i][j] = ilMatrix[i - 1][j] or ilMatrix[i][j - 1]
+      else:
+        ilMatrix[i][j] = False
+
+  # 완성된 행렬을 출력합니다.
+  for i in range(0, M + 1):
+    for j in range(0, N + 1):
+      print('%s' % 'T ' if ilMatrix[i][j] else 'F ', end = '')
+    print()
+
+  return ilMatrix[M][N]  
+
+```
+
+- 불리언을 DP 테이블에 넣어 연관성있게 다른 칸의 값도 나오는게 좀 유형이 신기한 문제였던 것 같음
+- O(n^2)로 반복되는 연산을 메모이제이션하기 때문에 시간이 줄어든다.
