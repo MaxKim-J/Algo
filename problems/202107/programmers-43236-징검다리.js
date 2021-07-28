@@ -17,7 +17,7 @@ function solution(distance, rocks, n) {
       let count = 0,
         now = 0;
 
-      // 자연스럽게 최소값을 최대로 하면서 꺼낼 수 있는 돌을 구할 수 있음
+      // 자연스럽게 간격을 최대로 하면서 꺼낼 수 있는 돌을 구할 수 있음
       for (let i = 1; i < rocks.length; i++) {
         if (rocks[i] - now < mid) {
           // 거리가 설정한 최소값보다 작다면 얘는 삭제가 가능한 돌임 => 간격을 더 벌림
