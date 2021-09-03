@@ -17,6 +17,7 @@ def dijkstra(graph, start):
    heapq.heappush(queue, [distances[start], start])
 
    while queue:
+     # 현재 방문한 노드들중 가장 거리가 작은것부터 먼저 순회
      current_distance, current_node = heapq.heappop(queue)
 
     # 현재 기록된 시작점으로부터 해당 노드까지의 최소경로가
