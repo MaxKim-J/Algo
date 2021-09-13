@@ -9,7 +9,7 @@ def get_score(string):
   apeach = 0
   lion = 0
   arr = list(map(int, list(string)))
-  for i in range(10):
+  for i in range(11):
     if info[i] >= arr[i]:
       if (arr[i] == 0) and (info[i] == 0):
         continue
@@ -24,19 +24,18 @@ def dfs():
 
   while queue:
     left, string = queue.pop()
-
-    if len(string) == 11:
-      continue
+    length = len(string)
 
     if left == 0:
-      new_string = string + '0' * (10 - len(string))
+      new_string = string + '0' * (11 - len(string))
       is_win, score = get_score(new_string)
       if is_win:
         answer.append((score, new_string))
 
-    for j in range(left+1):
-      new_string = string + str(j)
-      queue.append((left-j, new_string))
+    if length < 11:
+      for j in range(left+1):
+        new_string = string + str(j)
+        queue.append((left-j, new_string))
 
 dfs()
 
