@@ -19,6 +19,7 @@ def get_score(string):
 
   return (lion > apeach, lion-apeach)
 
+# 재귀 쓰기 싫거나 애매할때는 이런식으로 DFS 하자
 def dfs():
   queue = deque([(n, '')])
 
