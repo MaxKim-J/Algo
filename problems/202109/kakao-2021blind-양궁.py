@@ -19,7 +19,8 @@ def get_score(string):
 
   return (lion > apeach, lion-apeach)
 
-# 재귀 쓰기 싫거나 애매할때는 이런식으로 DFS 하자
+# 재귀 쓰기 싫거나 애매(recursion limit)할때는 이런식으로 DFS 하자
+# length가 하나 넘어갈때 너무 많은 수의 string이 추가됨
 def dfs():
   queue = deque([(n, '')])
 
@@ -32,6 +33,7 @@ def dfs():
       is_win, score = get_score(new_string)
       if is_win:
         answer.append((score, new_string))
+      continue # left가 0이면 거기서 딱 끝나야함
 
     if length < 11:
       for j in range(left+1):
