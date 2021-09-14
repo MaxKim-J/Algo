@@ -1,7 +1,10 @@
-from math import inf
+from math import inf # min이나 max칠때 limit을 못구하겠으면, 애매하면 그냥 Inf쓰자
+# JS에서는 Infinity라는 객체가 있다
 
 def solution(n, s, a, b, fares):
     answer = inf
+
+    # 사실 그래프 이차원 배열은 하나만 있으면 된다
     dist = [[inf]*n for _ in range(n)]
     
     for fare in fares:
