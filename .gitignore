@@ -45,4 +45,4 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/macos,jupyternotebooks
 
-.txt
+*.txt
