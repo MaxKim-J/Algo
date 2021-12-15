@@ -29,6 +29,7 @@ const twoSum = function(nums, target) {
 };
 
 // 좀더 깔끔한 방법
+//! 만약에 발견되지 않으면 어떻게 해야하나?
 const twoSum2 = function(nums, target) {
   var map = {};
 
