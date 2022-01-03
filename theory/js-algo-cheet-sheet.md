@@ -26,6 +26,12 @@ const [a,b,c,d] = [0,1,2,3]
 
 ## 3. 집합 관련 연산
 
+- add : 넣기
+- delete : 빼기
+- size : 크기
+- new Set(배열) : 배열로 집합만들기
+- [...set] => 집합 배열로 만들기
+
 ## 4. 이진 연산
 
 - & : and
@@ -38,8 +44,22 @@ const [a,b,c,d] = [0,1,2,3]
 - toString(2) : 이진법 문자열로 변환
 - parseInt(숫자, 2) : 이진법을 정수로 변환
 
-## 5. 문자열 메소드
+## 5. splice, slice
 
-- join
-- reverse
-- index
+- slice는 문자열과 배열의 sub을 리턴하는데 사용한다. 
+  - 새로운 subString, subArray를 반환한다.
+  - 음수 인덱스를 사용할 수 있다.
+- splice는 배열을 직접 수정할때 사용한다. 특정 인덱스에 삽입 삭제 모두 가능. 두번째 인자가 deletcount
+  - splice(0,5) : idx 0부터 5개 삭제
+  - splice(5,1) : idx 5 하나 삭제
+  - splice(0,0,'cat') : idx 0에 cat 추가
+  - splice(0,1,'dog') : idx 0을 dog로 대체
+  - splice(0,0,'dog', 'cat') : idx 0에 dog, cat 추가
+
+
+## 6. Number의 정수 범위
+
+![이런 문제가 나와서 정리해보았다..](https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/559/)
+
+- Number의 정수 범위는 2**53-1 까지로 (9007199254740991, 음수도 그럼) 16자리부터는 못쓰는 숫자가 존재하고 17자리부터는 무조건 못쓴다고 보면 된다. 이때는 BigInt를 쓰거나 해야함
+- BigInt로 연산할때는 숫자 뒤에 n을 붙인다.
