@@ -72,3 +72,42 @@ const [a,b,c,d] = [0,1,2,3]
 - 배열의 요소가 기본형일 경우 : `Array(n).fill(elem)`
   - 참조형을 fill하면 배열 내부의 요소들이 같은 레퍼런스를 가리키는 배열이나 객체가 되서 좋지 못함
 - 배열의 요소가 배열이나 객체같은 참조형일 경우 : `Array.from({length:n}, (v,i) => {})`
+
+## 8. Array.sort()
+
+- JS의 정렬 메소드는 해괴하게 생겼다.
+- 콜백이 없으면 요소들은 문자열로 취급되어 유니코드 값 순서대로 정렬된다.
+- 새로운 배열을 반환하지 않고 기존의 배열을 직접 수정한다.
+- 규칙 : compare(a,b)가 리턴하는 값이 0보다 작은 경우 a를 b보다 낮은 색인으로 정렬, 0을 반환하면 서로에 대해 변경하지 않고 모든 다른 요소에 대해 정렬, 0보다 큰 경우 b를 a보다 낮은 인덱스로 정렬.
+
+```js
+const arr = [3,4,5,2];
+
+function compare(a, b) {
+  if (이 조건에 따르면 a가 b보다 작다.) {
+    return -1;
+  }
+  if (이 조건에 따르면 a가 b보다 크다.) {
+    return 1;
+  }
+  // a가 b와 동일한 경우!
+  return 0;
+}
+
+sort((a,b) => a-b) // 숫자 배열 오름차순 정렬
+sort((b,a) => b-a) // 숫자 배열 내림차순 정렬
+sort((a,b) => a.value - b.value) // 특정 프로퍼티로 정렬
+
+// value 속성에 대해 내림차순, value2 속성에 대해 오름차순 정렬
+sort((a,b) => {
+	if(a.value>b.value) return 1; // 내림차순 정렬
+	if(a.value<b.value) return -1;
+	if(a.value2<b.value2) return 1; // 오름차순 정렬
+	if(a.value2<b.value2) return -1;
+	return 0;
+}) 
+
+// 이게 읽기에 더 나은듯 - value 속성에 대해 오름차순, value2 속성에 대해 내림차순
+sort((a,b) => a.value !== b.value ? a.value - b.value : b.value2 - a.value2) 
+sort((a,b) => a[0] !== b[0] ? a[0] - b[0] : b[1] - a[1]) 
+```
