@@ -54,19 +54,33 @@ const [a,b,c,d] = [0,1,2,3]
 - parseInt(숫자, 2) : 이진법을 정수로 변환
 
 ## 5. splice, slice
+### Slice
 
-- slice는 문자열과 배열의 sub을 리턴하는데 사용한다. 
+slice는 문자열과 배열의 sub을 리턴하는데 사용한다. 
+
   - 새로운 subString, subArray를 반환한다.
   - 음수 인덱스를 사용할 수 있다.
-- splice는 배열을 직접 수정할때 사용한다. 특정 인덱스에 삽입 삭제 모두 가능. 두번째 인자가 deletcount
-  - 음수 인덱스 얘도 사용 가능함
-  - 리턴값으로 없어진 값이 나온다.
-  - splice(0,5) : idx 0부터 5개 삭제
-  - splice(5,1) : idx 5 하나 삭제
-- splice(0,0,'cat') : idx 0에 cat 추가 : 중간에 0이 오면 삽입이다, 어떤 것도 빼지 않음
-  - splice(0,1,'dog') : idx 0을 dog로 대체
-  - splice(0,0,'dog', 'cat') : idx 0에 dog, cat 추가
 
+### Splice
+
+splice는 배열을 직접 수정할때 사용한다. 특정 인덱스에 삽입 삭제 모두 가능. 두번째 인자가 deletcount
+
+- 음수 인덱스 얘도 사용 가능함
+- 리턴값으로 없어진 값이 나온다.
+- splice(0,5) : idx 0부터 5개 삭제
+- splice(5,1) : idx 5 하나 삭제
+- splice(0,0,'cat') : idx 0에 cat 추가 : 중간에 0이 오면 삽입이다, 어떤 것도 빼지 않음
+- splice(0,1,'dog') : idx 0을 dog로 대체
+- splice(0,0,'dog', 'cat') : idx 0에 dog, cat 추가
+
+### 헷갈리는 포인트
+
+- 배열의 마지막 값을 제거하고 싶을 경우 : `arr.splice(arr.length-1, 1);`
+  - 제거는 그 인덱스부터 시작
+  - 그냥 pop써도 되긴 하겠다..
+- 배열의 마지막에 값을 넣고싶을 경우(push) : `arr.splice(arr.length, 0, 무언가);`
+  - arr.length-1 기준으로 삽입하면 뒤에서 두번째에 삽입됨.
+  - 여러번 push를 작성해야 하는 것을 막아주기도 하는건가..? 싶었는데 push도 인자 여러개 받을 수 있구나 ㄷㄷ
 ## 5.5 음수 인덱스
 
 - 파이썬의 그것과는 매우 양상이 다르다. splice에서 사용하는 음수 인덱스는 `뒤에서부터 몇번째`의 의미이다. -1은 맨 뒤 인덱스에서부터 첫번째
