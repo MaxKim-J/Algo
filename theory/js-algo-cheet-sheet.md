@@ -209,3 +209,14 @@ for(let i = 0;i<arr.length;i++) {
 ```
 
 (그런 일이 많이는 없었던 것 같지만) 객체를 순회하고 싶을때는 인덱스는 별로 안중요하기 때문에 `for...in`을 주로 사용하는 듯 하다.
+
+## 13. 난수
+
+Math.random()으로 만든다. 기본적으로 0부터 1까지의 float난수를 반환하며, Math.floor로 정수로 변환한다.
+
+- 정수 범위 난수 : 뒤에다가 정수를 곱한다. 제일 많이 씀.
+  - `Math.floor(Math.random() * 4)` : 0부터 3까지의 정수
+  - `Math.floor(Math.random() * 5)` : 0부터 4까지의 정수
+  - `Math.floor(Math.random() * 5 + 1)` : 1부터 4까지의 정수
+  - `Math.floor(Math.random() * 8 + 2)` : 2부터 7까지의 정수
+
